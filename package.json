@@ -1,0 +1,21 @@
+{
+  "name": "taha-traders",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Taha Traders wholesale tailoring materials website + admin",
+  "scripts": {
+    "predev": "node -e \"try{require('child_process').execSync('powershell -NoProfile -Command \\\"Get-NetTCPConnection -LocalPort 3001 -State Listen -ErrorAction SilentlyContinue | ForEach-Object { Stop-Process -Id $_.OwningProcess -Force -ErrorAction SilentlyContinue }\\\"',{stdio:'ignore'})}catch(e){}\"",
+    "dev": "concurrently -n api,web -c blue,green \"npm run start:dev --prefix backend\" \"npm run dev --prefix frontend\"",
+    "dev:frontend": "npm run dev --prefix frontend",
+    "dev:admin": "npm run dev --prefix frontend",
+    "dev:backend": "npm run start:dev --prefix backend",
+    "build": "npm run build --prefix backend && npm run build --prefix frontend",
+    "build:frontend": "npm run build --prefix frontend",
+    "build:admin": "npm run build --prefix frontend",
+    "build:backend": "npm run build --prefix backend",
+    "seed": "npm run seed --prefix backend"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}

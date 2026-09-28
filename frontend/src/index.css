@@ -1,0 +1,153 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Syne:wght@600;700;800&display=swap");
+@import "tailwindcss";
+
+@theme {
+  --color-brand: #0a3d8f;
+  --color-brand-bright: #1e6bff;
+  --color-brand-purple: #5b2c8b;
+  --color-surface: #f7f9fc;
+  --color-surface-dark: #0b1220;
+  --color-ink: #0f172a;
+  --color-muted: #475569;
+  --color-line: #d8e0ec;
+  --color-demo: #92400e;
+  --font-display: "Syne", sans-serif;
+  --font-sans: "DM Sans", sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  color: var(--color-ink);
+  background: var(--color-surface);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-brand-bright);
+  outline-offset: 2px;
+}
+
+/* Admin panel — depth, sticky sidebar support, motion */
+.admin-shell {
+  perspective: 1400px;
+}
+
+.admin-orb {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(60px);
+  opacity: 0.45;
+  animation: admin-float 12s ease-in-out infinite;
+}
+
+.admin-orb-a {
+  top: -8rem;
+  right: -4rem;
+  width: 22rem;
+  height: 22rem;
+  background: radial-gradient(circle, #1e6bff 0%, transparent 70%);
+}
+
+.admin-orb-b {
+  bottom: -10rem;
+  left: -6rem;
+  width: 26rem;
+  height: 26rem;
+  background: radial-gradient(circle, #5b2c8b 0%, transparent 70%);
+  animation-delay: -4s;
+}
+
+.admin-grid-fade {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse at center, black 20%, transparent 75%);
+}
+
+.admin-sidebar {
+  transform-style: preserve-3d;
+}
+
+.admin-nav-item.active {
+  transform: translateZ(12px);
+}
+
+.admin-card,
+.admin-stat-card {
+  transform: translateZ(0) rotateX(0deg);
+  transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+  animation: admin-rise 0.55s ease both;
+}
+
+.admin-stat-card:hover,
+.admin-card:hover {
+  transform: translateY(-4px) rotateX(2deg);
+  border-color: rgba(30, 107, 255, 0.35);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+}
+
+.admin-stage .rounded-xl,
+.admin-stage .rounded-lg {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+@keyframes admin-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(24px, -18px, 0) scale(1.05);
+  }
+}
+
+@keyframes admin-rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px) rotateX(8deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) rotateX(0);
+  }
+}
+
+.animate-admin-in {
+  animation: admin-rise 0.5s ease both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .admin-orb,
+  .admin-card,
+  .admin-stat-card,
+  .animate-admin-in {
+    animation: none !important;
+  }
+
+  .admin-stat-card:hover,
+  .admin-card:hover {
+    transform: none;
+  }
+}
+
